@@ -1,0 +1,59 @@
+define({
+  
+  //Orchestration
+  
+  orchestration:function(){
+    var serviceName = "TopStoriesandWeather";
+    var integrationObj = KNYMobileFabric.getIntegrationService(serviceName);
+    var operationName =  "getStoriesAndWeather";
+    var data= {
+      "country":"in",
+      "lat":"12.23",
+      "lon":"76.63"
+    };
+    var headers= {};	
+    integrationObj.invokeOperation(operationName, headers, data,this.successos,this.erroros);
+  },
+
+  successos: function(response){
+    kony.print("orchestration success "+JSON.stringify(response));
+  },
+
+  erroros: function(error){
+    kony.print("orchestration failure "+JSON.stringify(error));
+
+  },
+  
+  //Integration
+
+  integration: function(){
+    var serviceName = "NewsAndWeatherService";
+    var client = kony.sdk.getCurrentInstance();
+    var integrationSvc = client.getIntegrationService(serviceName);
+    var operationName = "WeatherForecast";
+    var params = {
+      "lat":"12.2958",
+      "lon":"76.6394"
+    };
+    var headers = {};
+
+    var options = {
+      "httpRequestOptions": {
+        "timeoutIntervalForRequest": 60,
+        "timeoutIntervalForResource": 600
+      }
+    };
+    integrationSvc.invokeOperation(operationName, headers, params, this.successig,this.errorig,options);
+  },
+
+  successig:function(response){
+    kony.print("Integration Success Response is: " + JSON.stringify(response));
+
+  },
+
+  errorig:function(error){
+    kony.print("Integration Error Failure:" + JSON.stringify(error));
+  }
+  
+  
+});
