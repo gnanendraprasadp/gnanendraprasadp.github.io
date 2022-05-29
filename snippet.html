@@ -1,44 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
+<head>
+    <title>Snippet</title>
+    <meta charset="utf-8">
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content='yes' name='apple-mobile-web-app-capable' />
+    <meta content='yes' name='mobile-web-app-capable' />
+
+</head>
+
 <body>
 
-<pre>
-define({
+    <h1>Invoke Object Service - Get</h1>
 
-  //Object-create
-
-  objectCreate: function(){
-    var objSvc = kony.sdk.getCurrentInstance().getObjectService("Location", {
-      "access": "online"
-    });
-
-    var dataObject = new kony.sdk.dto.DataObject("LatandLong");
-    dataObject.addField("Lat", "12.45");
-    dataObject.addField("Long", "76.45");
-    dataObject.addField("Id", "3");
-    dataObject.addField("Place", "Mandya");
-    dataObject.addField("CreatedBy", "Gnanendra");
-
-    var options1 = {
-      "dataObject": dataObject,
-      "CRUD_TYPE": "create"
-    };
-
-    objSvc.create(options1,function(response) {
-      kony.print("record: " + JSON.stringify(response));
-    },function(error) {
-      kony.print("Failed to fetch: " + JSON.stringify(error));
-    });
-  },
-
-  //Object-get
-
+    <pre>
   objectGet: function(){
-    var objSvc = kony.sdk.getCurrentInstance().getObjectService("Location", {
+    var objSvc = kony.sdk.getCurrentInstance().getObjectService("ServiceName", {
       "access": "online"
     });
 
-    var dataObject = new kony.sdk.dto.DataObject("LatandLong");
+    var dataObject = new kony.sdk.dto.DataObject("ObjectName");
     var odataUrl = "Location$LatandLong$get";
     dataObject.odataUrl = odataUrl;
 
@@ -55,10 +38,86 @@ define({
                  function(error) {
       kony.print("Failed to fetch: " + JSON.stringify(error));
     });
-  },
+  }
+</pre>
 
-  //Orchestration
+    <h1>Invoke Object Service - Create</h1>
+    <pre>
+  objectCreate: function(){
+    var objSvc = kony.sdk.getCurrentInstance().getObjectService("ServiceName", {
+      "access": "online"
+    });
 
+    var dataObject = new kony.sdk.dto.DataObject("ObjectName");
+    dataObject.addField("Lat", "12.45");
+    dataObject.addField("Long", "76.45");
+    dataObject.addField("Id", "3");
+    dataObject.addField("Place", "Mandya");
+    dataObject.addField("CreatedBy", "Gnanendra");
+
+    var options1 = {
+      "dataObject": dataObject,
+      "CRUD_TYPE": "create"
+    };
+
+    objSvc.create(options1,function(response) {
+      kony.print("record: " + JSON.stringify(response));
+    },function(error) {
+      kony.print("Failed to fetch: " + JSON.stringify(error));
+    });
+  }
+</pre>
+
+    <h1>Invoke Object Service - Update</h1>
+    <pre>
+var objSvc = kony.sdk.getCurrentInstance().getObjectService("ServiceName", {
+      "access": "online"
+    });
+
+    var dataObject = new kony.sdk.dto.DataObject("ObjectName");
+    dataObject.addField("Lat", "12.45");
+    dataObject.addField("Long", "76.45");
+    dataObject.addField("Id", "3");
+    dataObject.addField("Place", "Kodagu");
+    dataObject.addField("CreatedBy", "Admin");
+
+    var options = {
+      "dataObject": dataObject,
+      "CRUD_TYPE": "update"
+    };
+
+    objSvc.update(options,
+                  function(response) {
+      kony.print("Record updated: " + JSON.stringify(response));
+    },
+                  function(error) {
+      kony.print("Error in record update: " + JSON.stringify(error));
+    });
+</pre>
+
+    <h1>Invoke Object Service - Delete</h1>
+
+    <pre>
+    var objSvc = kony.sdk.getCurrentInstance().getObjectService("ServiceName", {
+      "access": "online"
+    });
+
+    var dataObject = new kony.sdk.dto.DataObject("ObjectName");
+    dataObject.addField("Id", "3");
+
+    var options = {
+      "dataObject": dataObject,
+      "CRUD_TYPE": "delete"
+    };
+    objSvc.deleteRecord(options,function(response) {
+      kony.print("Record deleted: " + JSON.stringify(response));
+    },function(error) {
+      kony.print("Error in record deletion: " + JSON.stringify(error));
+    });
+</pre>
+
+    <h1>Invoke Orchestration</h1>
+    <pre>
   orchestration:function(){
     var serviceName = "TopStoriesandWeather";
     var integrationObj = KNYMobileFabric.getIntegrationService(serviceName);
@@ -79,10 +138,11 @@ define({
   erroros: function(error){
     kony.print("orchestration failure "+JSON.stringify(error));
 
-  },
+  }
+</pre>
 
-  //Integration
-
+    <h1>Invoke Integration</h1>
+    <pre>
   integration: function(){
     var serviceName = "NewsAndWeatherService";
     var client = kony.sdk.getCurrentInstance();
@@ -112,9 +172,8 @@ define({
     kony.print("Integration Error Failure:" + JSON.stringify(error));
   }
 
-
-});
 </pre>
 
 </body>
+
 </html>
