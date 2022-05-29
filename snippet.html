@@ -2,16 +2,51 @@
 <html lang="en">
 
 <head>
-    <title>Snippet</title>
-    <meta charset="utf-8">
-    <meta name="theme-color" content="#ffffff" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content='yes' name='apple-mobile-web-app-capable' />
-    <meta content='yes' name='mobile-web-app-capable' />
+  <title>Snippet</title>
+  <meta charset="utf-8">
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content='yes' name='apple-mobile-web-app-capable' />
+  <meta content='yes' name='mobile-web-app-capable' />
 
 </head>
 
 <body>
+
+    <h1>Alert-Confirmation</h1>
+
+<pre>
+    function alertaction(action)
+    {
+      if(action){
+        var toast = new kony.ui.Toast({
+          "text": "See you soon",
+          "duration": constants.SHORT
+        });
+        toast.show();
+        kony.application.exit();
+      }
+      else{
+        var toast = new kony.ui.Toast({
+          "text": "Enjoy in our app",
+          "duration": constants.SHORT
+        });
+        toast.show();
+      }
+    }
+
+    kony.ui.Alert({
+      "alertType": constants.ALERT_TYPE_CONFIRMATION,
+      "alertTitle": "Success Response",
+      "yesLabel": "Looks Good",
+      "noLabel": "Feeling Bad",
+      "alertIcon": "acme.png",
+      "message": "Your account creation is successful",
+      "alertHandler": alertaction
+    }, {
+      "iconPosition": constants.ALERT_ICON_POSITION_LEFT
+    });
+</pre>
 
     <h1>Invoke Object Service - Get</h1>
 
@@ -41,7 +76,7 @@
   }
 </pre>
 
-    <h1>Invoke Object Service - Create</h1>
+<h1>Invoke Object Service - Create</h1>
     <pre>
   objectCreate: function(){
     var objSvc = kony.sdk.getCurrentInstance().getObjectService("ServiceName", {
@@ -68,8 +103,8 @@
   }
 </pre>
 
-    <h1>Invoke Object Service - Update</h1>
-    <pre>
+<h1>Invoke Object Service - Update</h1>
+<pre>
 var objSvc = kony.sdk.getCurrentInstance().getObjectService("ServiceName", {
       "access": "online"
     });
@@ -95,9 +130,9 @@ var objSvc = kony.sdk.getCurrentInstance().getObjectService("ServiceName", {
     });
 </pre>
 
-    <h1>Invoke Object Service - Delete</h1>
+<h1>Invoke Object Service - Delete</h1>
 
-    <pre>
+<pre>
     var objSvc = kony.sdk.getCurrentInstance().getObjectService("ServiceName", {
       "access": "online"
     });
