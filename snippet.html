@@ -1,7 +1,64 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<pre>
 define({
-  
+
+  //Object-create
+
+  objectCreate: function(){
+    var objSvc = kony.sdk.getCurrentInstance().getObjectService("Location", {
+      "access": "online"
+    });
+
+    var dataObject = new kony.sdk.dto.DataObject("LatandLong");
+    dataObject.addField("Lat", "12.45");
+    dataObject.addField("Long", "76.45");
+    dataObject.addField("Id", "3");
+    dataObject.addField("Place", "Mandya");
+    dataObject.addField("CreatedBy", "Gnanendra");
+
+    var options1 = {
+      "dataObject": dataObject,
+      "CRUD_TYPE": "create"
+    };
+
+    objSvc.create(options1,function(response) {
+      kony.print("record: " + JSON.stringify(response));
+    },function(error) {
+      kony.print("Failed to fetch: " + JSON.stringify(error));
+    });
+  },
+
+  //Object-get
+
+  objectGet: function(){
+    var objSvc = kony.sdk.getCurrentInstance().getObjectService("Location", {
+      "access": "online"
+    });
+
+    var dataObject = new kony.sdk.dto.DataObject("LatandLong");
+    var odataUrl = "Location$LatandLong$get";
+    dataObject.odataUrl = odataUrl;
+
+
+    var options = {
+      "dataObject": dataObject,
+      "CRUD_TYPE": "get"
+    };
+
+    objSvc.fetch(options,
+                 function(response) {
+      kony.print("record: " + JSON.stringify(response));
+    },
+                 function(error) {
+      kony.print("Failed to fetch: " + JSON.stringify(error));
+    });
+  },
+
   //Orchestration
-  
+
   orchestration:function(){
     var serviceName = "TopStoriesandWeather";
     var integrationObj = KNYMobileFabric.getIntegrationService(serviceName);
@@ -23,7 +80,7 @@ define({
     kony.print("orchestration failure "+JSON.stringify(error));
 
   },
-  
+
   //Integration
 
   integration: function(){
@@ -54,6 +111,10 @@ define({
   errorig:function(error){
     kony.print("Integration Error Failure:" + JSON.stringify(error));
   }
-  
-  
+
+
 });
+</pre>
+
+</body>
+</html>
